@@ -1,0 +1,37 @@
+import urllib.request
+import json
+import sys
+
+username = sys.argv[1]
+url = f"https://api.github.com/users/{username}/events"
+
+response = urllib.request.urlopen(url)
+data = json.loads(response.read())
+
+for kill in data:
+    arg=kill["type"]
+    Pushcount=0
+    Createcount=0
+    Deletecount=0
+    cccount=0
+    if arg=="PushEvent":
+        Pushcount+=1
+    if arg=="CreateEvent":
+        Createcount+=1
+    if arg=="DeleteEvent":
+        Deletecount+=1
+    if arg=="CommitCommentEvent":
+        cccount+=1
+        
+    what=kill["repo"]["name"]
+    
+
+print(f"In {what}, the PushEvent occured {Pushcount} times")
+
+print(f"In {what}, the CreateEvent occured {Createcount} times")
+
+print(f"In {what}, the DeleteEvent occured {Deletecount} times")
+
+print(f"In {what}, the CommitEvent occured {cccount} times")
+
+
