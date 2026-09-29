@@ -7,13 +7,13 @@ url = f"https://api.github.com/users/{username}/events"
 
 response = urllib.request.urlopen(url)
 data = json.loads(response.read())
+Pushcount=0
+Createcount=0
+Deletecount=0
+cccount=0
 
 for kill in data:
     arg=kill["type"]
-    Pushcount=0
-    Createcount=0
-    Deletecount=0
-    cccount=0
     if arg=="PushEvent":
         Pushcount+=1
     if arg=="CreateEvent":
